@@ -1,6 +1,8 @@
 package com.oliveira.gillian.taskmanager.backend.entities;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,6 +15,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,6 +38,9 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
 	private Set<Role> role = new HashSet<>();
+	
+	@OneToMany(mappedBy = "owner")
+	private List<Task> tasks = new ArrayList<>();
 	
 	public User() {
 	}
@@ -79,6 +85,10 @@ public class User {
 
 	public Set<Role> getRole() {
 		return role;
+	}	
+
+	public List<Task> getTasks() {
+		return tasks;
 	}
 
 	@Override
