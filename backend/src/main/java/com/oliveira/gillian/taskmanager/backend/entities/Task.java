@@ -4,16 +4,33 @@ import java.util.Objects;
 
 import com.oliveira.gillian.taskmanager.backend.entities.enums.TaskStatus;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name="tb_task")
 public class Task {
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(nullable=false)
 	private String title;
 	
+	@Column(columnDefinition="TEXT")
 	private String description;
 	
 	private User owner;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
 	private TaskStatus taskStatus = TaskStatus.PENDING;
 	
 	public Task() {
