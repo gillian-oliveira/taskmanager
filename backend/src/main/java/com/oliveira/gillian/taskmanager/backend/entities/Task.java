@@ -1,5 +1,6 @@
 package com.oliveira.gillian.taskmanager.backend.entities;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import com.oliveira.gillian.taskmanager.backend.entities.enums.TaskStatus;
@@ -38,14 +39,18 @@ public class Task {
 	@Column(nullable = false)
 	private TaskStatus taskStatus = TaskStatus.PENDING;
 	
+	@Column(name = "deadline", nullable = false, columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private LocalDateTime deadline;
+	
 	public Task() {
 	}
 
-	public Task(Long id, String title, String description, User owner) {
+	public Task(Long id, String title, String description, User owner, LocalDateTime deadline) {
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.owner = owner;
+		this.deadline = deadline;
 	}
 
 	public Long getId() {
@@ -86,6 +91,14 @@ public class Task {
 
 	public void setTaskStatus(TaskStatus taskStatus) {
 		this.taskStatus = taskStatus;
+	}	
+
+	public LocalDateTime getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(LocalDateTime deadline) {
+		this.deadline = deadline;
 	}
 
 	@Override
