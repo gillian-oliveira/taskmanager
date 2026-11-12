@@ -20,7 +20,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="tb_user")
-public class User {
+public class User extends AuditableEntity { 
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
