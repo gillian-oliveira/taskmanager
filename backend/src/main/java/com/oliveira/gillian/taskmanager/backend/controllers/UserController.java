@@ -2,7 +2,11 @@ package com.oliveira.gillian.taskmanager.backend.controllers;
 
 import java.net.URI;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +39,13 @@ public class UserController {
 				.buildAndExpand(createdUser.id())
 				.toUri();
 		return ResponseEntity.created(uri).body(createdUser);
+	}
+	
+	@GetMapping("/active")
+	public ResponseEntity<Page<UserResponseDTO>> findAllActiveUsersPaged(
+			@PageableDefault(page = 0, size = 10, sort = "createdAt") Pageable pageable) {
+		Page<UserResponseDTO> activeUsersPage = userService.findAllByPaged(pageable);
+		return ResponseEntity.ok(activeUsersPage);	
 	}
 	
 	
