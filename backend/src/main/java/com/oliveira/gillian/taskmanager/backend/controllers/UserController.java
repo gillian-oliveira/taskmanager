@@ -41,13 +41,16 @@ public class UserController {
 		return ResponseEntity.created(uri).body(createdUser);
 	}
 	
+	@GetMapping
+	public ResponseEntity<Page<UserResponseDTO>> findAll(Pageable pageable) {
+		Page<UserResponseDTO> response = userService.findAllUsers(pageable);
+		return ResponseEntity.ok(response);
+	}
+	
 	@GetMapping("/active")
 	public ResponseEntity<Page<UserResponseDTO>> findAllActivePaged(
 			@PageableDefault(page = 0, size = 10, sort = "createdAt") Pageable pageable) {
 		Page<UserResponseDTO> activeUsersPage = userService.findAllActivePaged(pageable);
 		return ResponseEntity.ok(activeUsersPage);	
 	}
-	
-	
-
 }
