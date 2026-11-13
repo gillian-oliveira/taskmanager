@@ -1,16 +1,17 @@
 package com.oliveira.gillian.taskmanager.backend.services;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.oliveira.gillian.taskmanager.backend.dto.UserRequestDTO;
 import com.oliveira.gillian.taskmanager.backend.dto.UserResponseDTO;
 import com.oliveira.gillian.taskmanager.backend.dto.mappers.UserMapper;
 import com.oliveira.gillian.taskmanager.backend.entities.User;
 import com.oliveira.gillian.taskmanager.backend.repositories.UserRepository;
-
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
@@ -47,6 +48,10 @@ public class UserService {
 		return page.map(userMapper::toResponse);
 	}
 	
-	
+	@Transactional(readOnly = true)
+	public UserResponseDTO findById(Long id) {
+		Optional<User> user = userRepository.findById(id);
+		return user.map(userMapper::toResponse).orElse(null);
+	}
 	
 }
