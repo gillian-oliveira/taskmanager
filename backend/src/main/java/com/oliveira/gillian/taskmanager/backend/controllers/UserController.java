@@ -44,7 +44,7 @@ public class UserController {
 	
 	@GetMapping
 	public ResponseEntity<Page<UserResponseDTO>> findAll(Pageable pageable) {
-		Page<UserResponseDTO> response = userService.findAllUsers(pageable);
+		Page<UserResponseDTO> response = userService.findAllUsersPaged(pageable);
 		return ResponseEntity.ok(response);
 	}
 	
